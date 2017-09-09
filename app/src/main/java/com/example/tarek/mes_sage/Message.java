@@ -10,7 +10,22 @@ public class Message {
     private int year;
     private int day;
     private int month;
-    private int time;
+    private int hour;
+    private int minute;
+
+    //Constructor
+    public Message(String name, String phoneNumber, String messageText, String frequency, boolean send, int year, int day, int month, int hour, int minute) {
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.messageText = messageText;
+        this.frequency = frequency;
+        this.send = send;
+        this.year = year;
+        this.day = day;
+        this.month = month;
+        this.hour = hour;
+        this.minute = minute;
+    }
 
     //Getters and setters
     public String getName() {
@@ -45,7 +60,9 @@ public class Message {
     public void setDay(int day) { this.day = day; }
     public int getMonth() { return month; }
     public void setMonth(int month) { this.month = month; }
-    public int getTime() { return time; }
-    public void setTime(int time) { this.time = time; }
+    public int getHour() { return hour; }
+    public void setHour(int hour) { this.hour = hour; }
+    public int getMinute() { return minute; }
+    public void setMinute(int minute) { this.minute = minute; }
 
 }

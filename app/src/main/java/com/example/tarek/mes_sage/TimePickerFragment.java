@@ -1,7 +1,9 @@
 package com.example.tarek.mes_sage;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -11,6 +13,9 @@ import android.widget.TimePicker;
 
 public class TimePickerFragment extends DialogFragment
         implements TimePickerDialog.OnTimeSetListener {
+
+    private int activityHour;
+    private int activityMinute;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -25,6 +30,8 @@ public class TimePickerFragment extends DialogFragment
     }
 
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        // Do something with the time chosen by the user
+        this.activityMinute = minute;
+        this.activityHour = hourOfDay;
     }
+
 }

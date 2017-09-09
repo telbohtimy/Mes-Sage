@@ -14,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -22,6 +23,16 @@ import android.widget.Toast;
 public class BuildMessageActivity extends AppCompatActivity {
     private static final int REQUEST_CODE = 1;
     private static final String TAG = BuildMessageActivity.class.getSimpleName();
+    public MessageController controller = new MessageController();
+    public String name;
+    public String phoneNumber;
+    public String messageText;
+    public String frequency;
+    public int year;
+    public int day;
+    public int month;
+    public int hour;
+    public int minute;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +46,7 @@ public class BuildMessageActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
     }
+
     public void onClickSelectContact(View btnSelectContact) {
         Uri uri = Uri.parse("content://contacts");
         Intent intent = new Intent(Intent.ACTION_PICK, uri);
@@ -59,13 +71,9 @@ public class BuildMessageActivity extends AppCompatActivity {
                 int nameColumnIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
                 String name = cursor.getString(nameColumnIndex);
 
-                //Just seeing the data
-                Log.d(TAG, "ZZZ number : " + number +" , name : "+name+" TEST");
-                Context context = getApplicationContext();
-                CharSequence text = name + ": "+ number+"!!!";
-                int duration = Toast.LENGTH_LONG;
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();
+              /*  Log.d(TAG, "ZZZ number : " + number +" , name : "+name+" TEST");*/
+                this.phoneNumber = number;
+                this.name = name;
 
             }
         }
@@ -80,18 +88,26 @@ public class BuildMessageActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_send:
-                Context context = getApplicationContext();
-                CharSequence text = "Send Successful !!!";
-                int duration = Toast.LENGTH_LONG;
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();
+                EditText editText   = (EditText)findViewById(R.id.message);
+                this.messageText = editText.getText().toString();
+                Spinner spinner = (Spinner)findViewById(R.id.frequency_spinner);
+                this.frequency = spinner.getSelectedItem().toString();
+                if(this.controller.validInput(this.name,this.phoneNumber, this.messageText, this.year, this.day, this.month, this.hour, this.minute)){
+                    finish();
+                }
+                else{
+                    Context context = getApplicationContext();
+                    CharSequence text = "Please fill in all the fields";
+                    int duration = Toast.LENGTH_LONG;
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                }
                 return true;
             case R.id.action_cancel:
                 finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
-
         }
     }
 
@@ -102,7 +118,5 @@ public class BuildMessageActivity extends AppCompatActivity {
     public void onClickTimePick(View v){
         DialogFragment newFragment = new TimePickerFragment();
         newFragment.show(getSupportFragmentManager(), "timePicker");
-
     }
-
 }
