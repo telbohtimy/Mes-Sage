@@ -28,11 +28,11 @@ public class BuildMessageActivity extends AppCompatActivity {
     public String phoneNumber;
     public String messageText;
     public String frequency;
-    public int year;
-    public int day;
-    public int month;
-    public int hour;
-    public int minute;
+    public int year = 0;
+    public int day = 0;
+    public int month = 0;
+    public int hour = 0;
+    public int minute = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +93,8 @@ public class BuildMessageActivity extends AppCompatActivity {
                 Spinner spinner = (Spinner)findViewById(R.id.frequency_spinner);
                 this.frequency = spinner.getSelectedItem().toString();
                 if(this.controller.validInput(this.name,this.phoneNumber, this.messageText, this.year, this.day, this.month, this.hour, this.minute)){
+                    Context context = getApplicationContext();
+                    this.controller.createMessage(context, this.name, this.phoneNumber, this.messageText, this.frequency, this.year, this.day, this.month, this.hour, this.minute);
                     finish();
                 }
                 else{
