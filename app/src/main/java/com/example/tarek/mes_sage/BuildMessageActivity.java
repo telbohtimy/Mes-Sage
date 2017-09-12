@@ -23,7 +23,6 @@ import android.widget.Toast;
 public class BuildMessageActivity extends AppCompatActivity {
     private static final int REQUEST_CODE = 1;
     private static final String TAG = BuildMessageActivity.class.getSimpleName();
-    public MessageController controller = new MessageController();
     public String name;
     public String phoneNumber;
     public String messageText;
@@ -92,9 +91,9 @@ public class BuildMessageActivity extends AppCompatActivity {
                 this.messageText = editText.getText().toString();
                 Spinner spinner = (Spinner)findViewById(R.id.frequency_spinner);
                 this.frequency = spinner.getSelectedItem().toString();
-                if(this.controller.validInput(this.name,this.phoneNumber, this.messageText, this.year, this.day, this.month, this.hour, this.minute)){
+                if(MessageController.validInput(this.name,this.phoneNumber, this.messageText, this.year, this.day, this.month, this.hour, this.minute)){
                     Context context = getApplicationContext();
-                    this.controller.createMessage(context, this.name, this.phoneNumber, this.messageText, this.frequency, this.year, this.day, this.month, this.hour, this.minute);
+                    MessageController.createMessage(context, this.name, this.phoneNumber, this.messageText, this.frequency, this.year, this.day, this.month, this.hour, this.minute);
                     finish();
                 }
                 else{

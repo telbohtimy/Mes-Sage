@@ -15,21 +15,22 @@ import java.util.ArrayList;
 
 public class MessageController {
 
-    private ArrayList<Message> messageList = new ArrayList<Message>();
-    Gson gson = new Gson();
-    String filename = "messageList.txt";
 
-    public boolean validInput(String name, String phoneNumber, String messageText, int year, int day, int month, int hour, int minute){
+    private static ArrayList<Message> messageList = new ArrayList<Message>();
+    private static Gson gson = new Gson();
+    private static String filename = "messageList.txt";
+
+    public static boolean validInput(String name, String phoneNumber, String messageText, int year, int day, int month, int hour, int minute){
         //Need to add null and empty checks here
         return true;
     }
-    public void createMessage(Context context, String name, String phoneNumber, String messageText, String frequency, int year, int day, int month, int hour, int minute){
+    public static void createMessage(Context context, String name, String phoneNumber, String messageText, String frequency, int year, int day, int month, int hour, int minute){
         Message message = new Message(name, phoneNumber, messageText, frequency, true, year, day, month, hour, minute);
         messageList.add(message);
         saveMessageList(context);
     }
-    public void saveMessageList(Context context){
-        String save = gson.toJson(this.messageList);
+    public static void saveMessageList(Context context){
+        String save = gson.toJson(messageList);
         FileOutputStream outputStream;
         try {
             outputStream = context.openFileOutput(filename, Context.MODE_PRIVATE);
@@ -40,7 +41,7 @@ public class MessageController {
         }
     }
 
-    public void loadMessageList(Context context){
+    public static void loadMessageList(Context context){
         try {
             FileInputStream fis = context.openFileInput(filename);
             InputStreamReader isr = new InputStreamReader(fis);
@@ -59,4 +60,7 @@ public class MessageController {
 
     }
 
+    public static ArrayList<Message> getMessageList() {
+        return messageList;
+    }
 }
