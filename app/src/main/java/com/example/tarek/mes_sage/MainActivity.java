@@ -40,16 +40,23 @@ public class MainActivity extends AppCompatActivity {
 
         Context context = getApplicationContext();
         MessageController.loadMessageList(context);
-        messageList = MessageController.getMessageList();
+       // messageList = MessageController.getMessageList();
+        messageList.add(new Message("A", "B", "C", "D", false, 1, 1, 1, 1, 2));
+        messageList.add(new Message("a", "B", "C", "D", true, 1, 1, 1, 1, 2));
+        messageList.add(new Message("A", "B", "C", "D", false, 1, 1, 1, 1, 2));
+        messageList.add(new Message("a", "B", "C", "D", true, 1, 1, 1, 1, 2));
+        messageList.add(new Message("A", "B", "C", "D", false, 1, 1, 1, 1, 2));
+        messageList.add(new Message("a", "B", "C", "D", true, 1, 1, 1, 1, 2));
+        messageList.add(new Message("A", "B", "C", "D", false, 1, 1, 1, 1, 2));
+        messageList.add(new Message("a", "B", "C", "D", true, 1, 1, 1, 1, 2));
+        messageList.add(new Message("A", "B", "C", "D", false, 1, 1, 1, 1, 2));
+
 
         ListView yourListView = (ListView) findViewById(R.id.message_list_view);
         // get data from the table by the ListAdapter
         ListAdapter customAdapter = new ListAdapter(this, R.layout.list_message, messageList);
         yourListView .setAdapter(customAdapter);
 
-    // Example of a call to a native method
-    TextView tv = (TextView) findViewById(R.id.sample_text);
-    tv.setText(stringFromJNI());
     }
 
     @Override
