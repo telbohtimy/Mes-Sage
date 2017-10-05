@@ -18,10 +18,6 @@ public class MainActivity extends AppCompatActivity {
     public ArrayList<Message> messageList = new ArrayList<Message>();
     private ListView mListView;
 
-    static final String[] FRUITS = new String[] { "Apple", "Avocado", "Banana",
-            "Blueberry", "Coconut", "Durian", "Guava", "Kiwifruit",
-            "Jackfruit", "Mango", "Olive", "Pear", "Sugar-apple" };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
         Context context = getApplicationContext();
         MessageController.loadMessageList(context);
-       // messageList = MessageController.getMessageList();
+        //messageList = MessageController.getMessageList();
         messageList.add(new Message("A", "B", "C", "D", false, 1, 1, 1, 1, 2));
         messageList.add(new Message("a", "B", "C", "D", true, 1, 1, 1, 1, 2));
         messageList.add(new Message("A", "B", "C", "D", false, 1, 1, 1, 1, 2));

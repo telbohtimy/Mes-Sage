@@ -2,6 +2,7 @@ package com.example.tarek.mes_sage;
 
 
 import android.content.Context;
+import android.util.Log;
 
 import com.google.gson.Gson;
 
@@ -11,6 +12,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+
+import static android.content.ContentValues.TAG;
 
 
 public class MessageController {
@@ -36,6 +39,7 @@ public class MessageController {
             outputStream = context.openFileOutput(filename, Context.MODE_PRIVATE);
             outputStream.write(save.getBytes());
             outputStream.close();
+            Log.d(TAG, "SAVED");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -53,6 +57,7 @@ public class MessageController {
             }
             String load = sb.toString();
             messageList = gson.fromJson(load, ArrayList.class);
+            Log.d(TAG, "LOADED");
         }
         catch (IOException e){
             e.printStackTrace();
