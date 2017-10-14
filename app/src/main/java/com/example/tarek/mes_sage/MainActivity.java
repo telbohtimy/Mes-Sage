@@ -11,12 +11,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     public ArrayList<Message> messageList = new ArrayList<Message>();
-    private ListView mListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +37,15 @@ public class MainActivity extends AppCompatActivity {
 
         Context context = getApplicationContext();
         MessageController.loadMessageList(context);
-        //messageList = MessageController.getMessageList();
+
+        Context context2 = getApplicationContext();
+        CharSequence text = MessageController.getMessageList().toString();
+        int duration = Toast.LENGTH_LONG;
+
+        Toast toast = Toast.makeText(context2, text, duration);
+        toast.show();
+
+
         messageList.add(new Message("A", "B", "C", "D", false, 1, 1, 1, 1, 2));
         messageList.add(new Message("a", "B", "C", "D", true, 1, 1, 1, 1, 2));
         messageList.add(new Message("A", "B", "C", "D", false, 1, 1, 1, 1, 2));
@@ -47,11 +56,26 @@ public class MainActivity extends AppCompatActivity {
         messageList.add(new Message("a", "B", "C", "D", true, 1, 1, 1, 1, 2));
         messageList.add(new Message("A", "B", "C", "D", false, 1, 1, 1, 1, 2));
 
+        if(messageList.isEmpty()){
 
-        ListView yourListView = (ListView) findViewById(R.id.message_list_view);
-        // get data from the table by the ListAdapter
-        ListAdapter customAdapter = new ListAdapter(this, R.layout.list_message, messageList);
-        yourListView .setAdapter(customAdapter);
+            TextView ProgrammaticallyTextView = (TextView) findViewById(R.id.no_message);
+            ProgrammaticallyTextView.setText(" You have no messages to send ");
+            ProgrammaticallyTextView.setTextSize(12);
+            ProgrammaticallyTextView.setPadding(20, 300, 20, 100);
+
+        }
+        else {
+            ListView listView = (ListView) findViewById(R.id.message_list_view);
+            // get data from the table by the ListAdapter
+            ListAdapter customAdapter = new ListAdapter(this, R.layout.list_message, messageList);
+            listView.setAdapter(customAdapter);
+        }
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();  // Always call the superclass method first
 
     }
 
@@ -86,5 +110,17 @@ public class MainActivity extends AppCompatActivity {
     // Used to load the 'native-lib' library on application startup.
     static {
         System.loadLibrary("native-lib");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MessageController.saveMessageList(this);
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        MessageController.saveMessageList(this);
+
     }
 }

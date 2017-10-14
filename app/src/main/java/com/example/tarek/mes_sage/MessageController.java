@@ -21,7 +21,7 @@ public class MessageController {
 
     private static ArrayList<Message> messageList = new ArrayList<Message>();
     private static Gson gson = new Gson();
-    private static String filename = "messageList.txt";
+    private static String filename = "messageList";
 
     public static boolean validInput(String name, String phoneNumber, String messageText, int year, int day, int month, int hour, int minute){
         //Need to add null and empty checks here
@@ -32,6 +32,7 @@ public class MessageController {
         messageList.add(message);
         saveMessageList(context);
     }
+
     public static void saveMessageList(Context context){
         String save = gson.toJson(messageList);
         FileOutputStream outputStream;
