@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         else {
             ListView listView = (ListView) findViewById(R.id.message_list_view);
             // get data from the table by the ListAdapter
-            ListAdapter customAdapter = new ListAdapter(this, R.layout.list_message, messageList);
+            ListAdapter customAdapter = new ListAdapter(this, R.layout.list_message, MessageController.getMessageList());
             listView.setAdapter(customAdapter);
         }
 

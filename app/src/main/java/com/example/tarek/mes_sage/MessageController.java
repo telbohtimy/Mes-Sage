@@ -5,6 +5,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -57,7 +58,7 @@ public class MessageController {
                 sb.append(line);
             }
             String load = sb.toString();
-            messageList = gson.fromJson(load, ArrayList.class);
+            messageList = gson.fromJson(load, new TypeToken<ArrayList<Message>>(){}.getType());
             Log.d(TAG, "LOADED");
         }
         catch (IOException e){
